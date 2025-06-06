@@ -298,16 +298,6 @@ const AuthPages = () => {
           </p>
         </div>
       </div>
-
-      {/* Demo Toggle */}
-      <div className="fixed bottom-4 right-4">
-        <Button
-          onClick={toggleAuthMode}
-          className="bg-gray-800 hover:bg-gray-700 text-white text-xs px-3 py-2 rounded-lg shadow-lg"
-        >
-          Switch to {isLogin ? "Sign Up" : "Sign In"}
-        </Button>
-      </div>
     </div>
   );
 };

@@ -1,4 +1,3 @@
-// components/Hero.jsx
 import { useState, useEffect } from "react";
 import { HeroSlide } from "./HeroSlide";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -47,13 +46,20 @@ export default function Hero() {
   return (
     <section className="w-full h-screen bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center relative overflow-hidden group">
       <div className="relative w-full max-w-7xl mx-auto px-6">
+        
+        {/* Features Heading */}
+        <h4 className="text-4xl font-bold text-white text-center mb-8">
+          Features
+        </h4>
+
+        {/* Hero Slide */}
         <HeroSlide
           title={slides[currentSlide].title}
           description={slides[currentSlide].description}
           image={slides[currentSlide].image}
         />
 
-        {}
+        {/* Navigation Buttons */}
         <div className="absolute top-1/2 left-0 transform -translate-y-1/2 px-4 opacity-0 group-hover:opacity-100 transition duration-300">
           <button
             onClick={prevSlide}

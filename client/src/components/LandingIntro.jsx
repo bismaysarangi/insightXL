@@ -20,7 +20,7 @@ export default function LandingIntro() {
         y: 0,
         delay: 0.5,
         duration: 1,
-        ease: "power2.out"
+        ease: "power2.out",
       }
     );
 
@@ -55,7 +55,13 @@ export default function LandingIntro() {
       gsap.fromTo(
         label,
         { opacity: 0, y: 10 },
-        { opacity: 1, y: 0, delay: 1.6 + i * 0.1, duration: 0.6, ease: "power2.out" }
+        {
+          opacity: 1,
+          y: 0,
+          delay: 1.6 + i * 0.1,
+          duration: 0.6,
+          ease: "power2.out",
+        }
       );
     });
 
@@ -63,7 +69,13 @@ export default function LandingIntro() {
       gsap.fromTo(
         label,
         { opacity: 0, x: -10 },
-        { opacity: 1, x: 0, delay: 1.6 + i * 0.1, duration: 0.6, ease: "power2.out" }
+        {
+          opacity: 1,
+          x: 0,
+          delay: 1.6 + i * 0.1,
+          duration: 0.6,
+          ease: "power2.out",
+        }
       );
     });
   }, []);
@@ -71,7 +83,6 @@ export default function LandingIntro() {
   return (
     <section className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white h-screen px-8 py-20 flex items-center justify-center">
       <div className="max-w-7xl w-full flex flex-col md:flex-row items-center gap-10">
-
         {/* Text Content */}
         <div className="flex-1 flex flex-col justify-center items-start text-left px-6 relative left-20">
           {/* Logo and Brand */}
@@ -93,23 +104,19 @@ export default function LandingIntro() {
               Empower Your Data with Effortless Visualization
             </h2>
             <p className="text-white text-lg drop-shadow-md">
-              InsightXL helps you convert Excel files into beautiful, ready-to-use graphs. Generate bar, line, or pie charts with a few clicks — perfect for presentations, reports, or business analysis.
+              InsightXL helps you convert Excel files into beautiful,
+              ready-to-use graphs. Generate bar, line, or pie charts with a few
+              clicks — perfect for presentations, reports, or business analysis.
             </p>
           </div>
 
           {/* Buttons */}
           <div ref={btnRef} className="flex space-x-4 z-10 relative">
             <a
-              href="/login"
+              href="/auth"
               className="px-6 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium hover:from-blue-400 hover:to-purple-400 transition duration-300 shadow-lg border border-white"
             >
-              Log In
-            </a>
-            <a
-              href="/signup"
-              className="px-6 py-2 rounded-lg bg-white text-blue-700 font-medium hover:bg-blue-100 transition duration-300 shadow-lg border border-blue-400"
-            >
-              Sign Up
+              Log In to continue
             </a>
           </div>
         </div>
@@ -118,7 +125,10 @@ export default function LandingIntro() {
         <div className="flex-1 flex justify-center items-center px-6">
           <div className="w-96 h-60 relative">
             {/* Y-Axis */}
-            <div ref={yAxisRef} className="absolute left-6 bottom-0 h-[70%] w-px bg-gradient-to-b from-purple-600 to-blue-600"></div>
+            <div
+              ref={yAxisRef}
+              className="absolute left-6 bottom-0 h-[70%] w-px bg-gradient-to-b from-purple-600 to-blue-600"
+            ></div>
 
             {/* Y-Axis Ticks */}
             {[0, 30, 60, 90, 120].map((val, i) => (
@@ -126,17 +136,26 @@ export default function LandingIntro() {
                 key={`y-${i}`}
                 ref={(el) => (yLabelRefs.current[i] = el)}
                 className="absolute left-0 text-xs text-white"
-                style={{ bottom: `${(val / 120) * 70}%`, transform: "translateY(50%)" }}
+                style={{
+                  bottom: `${(val / 120) * 70}%`,
+                  transform: "translateY(50%)",
+                }}
               >
                 {val}
               </div>
             ))}
 
             {/* X-Axis */}
-            <div ref={xAxisRef} className="absolute left-6 bottom-0 w-[90%] h-px bg-gradient-to-r from-blue-600 to-purple-600"></div>
+            <div
+              ref={xAxisRef}
+              className="absolute left-6 bottom-0 w-[90%] h-px bg-gradient-to-r from-blue-600 to-purple-600"
+            ></div>
 
             {/* Graph Bars */}
-            <div ref={graphRef} className="absolute bottom-0 left-6 w-[90%] h-full flex justify-around items-end">
+            <div
+              ref={graphRef}
+              className="absolute bottom-0 left-6 w-[90%] h-full flex justify-around items-end"
+            >
               {[80, 100, 60, 120, 90].map((h, i) => (
                 <div key={i} className="flex flex-col items-center justify-end">
                   <div
@@ -149,7 +168,7 @@ export default function LandingIntro() {
 
             {/* X-Axis Labels */}
             <div className="absolute bottom-[-20px] left-6 w-[90%] flex justify-around items-center">
-              {['A', 'B', 'C', 'D', 'E'].map((label, i) => (
+              {["A", "B", "C", "D", "E"].map((label, i) => (
                 <span
                   key={i}
                   ref={(el) => (xLabelRefs.current[i] = el)}
@@ -161,7 +180,6 @@ export default function LandingIntro() {
             </div>
           </div>
         </div>
-
       </div>
     </section>
   );

@@ -276,14 +276,6 @@ const Navbar = () => {
                           <div className="w-1 h-6 bg-gradient-to-b from-blue-600 to-purple-600 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                           Features
                         </a>
-                        <a
-                          href="/pricing"
-                          className="flex items-center px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-all duration-300 font-medium group"
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          <div className="w-1 h-6 bg-gradient-to-b from-blue-600 to-purple-600 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                          Pricing
-                        </a>
                       </>
                     )}
                     <a
@@ -323,13 +315,6 @@ const Navbar = () => {
                             onClick={() => setIsMobileMenuOpen(false)}
                           >
                             Profile Settings
-                          </a>
-                          <a
-                            href="/billing"
-                            className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
-                            onClick={() => setIsMobileMenuOpen(false)}
-                          >
-                            Billing
                           </a>
                           <button
                             onClick={handleSignOut}

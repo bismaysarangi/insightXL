@@ -16,14 +16,14 @@ export default function AboutUs() {
   return (
     <div className="min-h-screen bg-gray-950 text-white px-6 py-16">
       <div className="max-w-6xl mx-auto space-y-16">
-
         {/* Heading */}
         <div className="text-center">
           <h1 className="text-5xl font-extrabold tracking-tight bg-gradient-to-r from-blue-500 to-teal-400 text-transparent bg-clip-text">
             Meet Our Team
           </h1>
           <p className="mt-4 text-lg text-gray-400">
-            Driven by passion. Built with purpose. We're a team committed to turning ideas into impactful digital experiences.
+            Driven by passion. Built with purpose. We're a team committed to
+            turning ideas into impactful digital experiences.
           </p>
         </div>
 
@@ -37,9 +37,16 @@ export default function AboutUs() {
               className="w-32 h-32 rounded-full border-2 border-blue-500"
             />
             <div>
-              <h2 className="text-2xl font-semibold mb-2 text-white">Tarvish Sonkhla</h2>
+              <h2 className="text-2xl font-semibold mb-2 text-white">
+                Tarvish Sonkhla
+              </h2>
               <p className="text-gray-300">
-                I’m Tarvish Sonkhla, currently pursuing my final year in Computer Science Engineering at Punjab University, Chandigarh. My focus lies in designing scalable backend architectures and building seamless, responsive user interfaces. I believe in developing practical digital solutions that not only perform but also deliver a refined user experience across diverse platforms.
+                I’m Tarvish Sonkhla, currently pursuing my final year in
+                Computer Science Engineering at Punjab University, Chandigarh.
+                My focus lies in designing scalable backend architectures and
+                building seamless, responsive user interfaces. I believe in
+                developing practical digital solutions that not only perform but
+                also deliver a refined user experience across diverse platforms.
               </p>
             </div>
           </div>
@@ -52,9 +59,16 @@ export default function AboutUs() {
               className="w-32 h-32 rounded-full border-2 border-purple-500"
             />
             <div>
-              <h2 className="text-2xl font-semibold mb-2 text-white">Bismay Sarangi</h2>
+              <h2 className="text-2xl font-semibold mb-2 text-white">
+                Bismay Sarangi
+              </h2>
               <p className="text-gray-300">
-                Hello, I'm Bismay Sarangi, a 21-year-old Computer Science student from XIM University, Bhubaneswar. I’m deeply curious about how technology intersects with human behavior and business strategy. My journey in software development revolves around building efficient, purpose-driven systems while learning from every iteration and collaborating with driven peers.
+                Hello, I'm Bismay Sarangi, a 21-year-old Computer Science
+                student from XIM University, Bhubaneswar. I’m deeply curious
+                about how technology intersects with human behavior and business
+                strategy. My journey in software development revolves around
+                building efficient, purpose-driven systems while learning from
+                every iteration and collaborating with driven peers.
               </p>
             </div>
           </div>
@@ -62,26 +76,43 @@ export default function AboutUs() {
 
         {/* Application Purpose */}
         <section className="bg-gray-800 rounded-xl p-6 shadow-md border border-teal-500/10">
-          <h2 className="text-2xl font-semibold text-white mb-4">What We Build</h2>
+          <h2 className="text-2xl font-semibold text-white mb-4">
+            What We Build
+          </h2>
           <p className="text-gray-300">
-            Our platform is engineered to modernize everyday experiences through two primary services:
+            Our platform is engineered to modernize everyday experiences through
+            two primary services:
           </p>
           <ul className="list-disc list-inside text-gray-300 mt-3 space-y-1">
-            <li><strong>Contactless Restaurant Ordering:</strong> Empowering diners to browse menus, place orders, and make payments via QR code—all without downloading an app or waiting for staff.</li>
-            <li><strong>Smart Parcel Delivery System:</strong> Facilitating secure and optimized last-mile delivery by allowing users to schedule parcel pickups, select vehicle types, and track deliveries in real-time.</li>
+            <li>
+              <strong>Contactless Restaurant Ordering:</strong> Empowering
+              diners to browse menus, place orders, and make payments via QR
+              code—all without downloading an app or waiting for staff.
+            </li>
+            <li>
+              <strong>Smart Parcel Delivery System:</strong> Facilitating secure
+              and optimized last-mile delivery by allowing users to schedule
+              parcel pickups, select vehicle types, and track deliveries in
+              real-time.
+            </li>
           </ul>
 
           <p className="mt-4 text-gray-300">
-            Built with scalability, accessibility, and performance in mind, our solution ensures a seamless experience for both end-users and business owners—on mobile and web platforms alike.
+            Built with scalability, accessibility, and performance in mind, our
+            solution ensures a seamless experience for both end-users and
+            business owners—on mobile and web platforms alike.
           </p>
 
           {/* Technologies Used */}
           <div className="mt-6">
-            <h3 className="text-xl font-semibold text-white mb-3">Technology Stack</h3>
+            <h3 className="text-xl font-semibold text-white mb-3">
+              Technology Stack
+            </h3>
             <p className="text-gray-400 mb-4">
-              We leverage a robust combination of modern technologies to ensure efficiency, reliability, and adaptability.
+              We leverage a robust combination of modern technologies to ensure
+              efficiency, reliability, and adaptability.
             </p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 text-center text-gray-300">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 text-center text-gray-300">
               <div className="flex flex-col items-center">
                 <SiReact className="text-cyan-400 text-3xl" />
                 <span>React.js</span>
@@ -90,10 +121,10 @@ export default function AboutUs() {
                 <SiTailwindcss className="text-sky-400 text-3xl" />
                 <span>Tailwind CSS</span>
               </div>
-              <div className="flex flex-col items-center">
+              {/* <div className="flex flex-col items-center">
                 <SiFirebase className="text-yellow-400 text-3xl" />
                 <span>Firebase</span>
-              </div>
+              </div> */}
               <div className="flex flex-col items-center">
                 <SiNodedotjs className="text-green-500 text-3xl" />
                 <span>Node.js</span>
@@ -118,10 +149,10 @@ export default function AboutUs() {
                 <SiCss3 className="text-blue-500 text-3xl" />
                 <span>CSS3</span>
               </div>
-              <div className="flex flex-col items-center">
+              {/* <div className="flex flex-col items-center">
                 <SiAndroid className="text-green-600 text-3xl" />
                 <span>Android (Java)</span>
-              </div>
+              </div> */}
             </div>
           </div>
         </section>

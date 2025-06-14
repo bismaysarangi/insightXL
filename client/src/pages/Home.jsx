@@ -4,6 +4,7 @@ import Hero from "../components/hero";
 import HowItWorks from "../components/HowItWorks";
 import LandingIntro from "../components/LandingIntro";
 import Navbar from "../components/Navbar";
+import AboutUs from "./AboutUs";
 
 const Home = () => {
   return (

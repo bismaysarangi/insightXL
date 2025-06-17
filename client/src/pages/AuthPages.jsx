@@ -16,7 +16,7 @@ const AuthPages = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    name: "", // Changed from firstName/lastName to single name field to match backend
+    name: "",
     agreeToTerms: false,
   });
   const [showPassword, setShowPassword] = useState(false);
@@ -112,7 +112,7 @@ const AuthPages = () => {
           setSuccess("Login successful! Redirecting...");
 
           setTimeout(() => {
-            window.location.href = "/dashboard";
+            window.location.href = "/";
           }, 1500);
         } else {
           setSuccess("Account created successfully! You can now sign in.");

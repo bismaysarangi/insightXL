@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { BarChart3 } from "lucide-react";
 import gsap from "gsap";
+import { useNavigate } from "react-router-dom";
 
 export default function LandingIntro() {
   const textRef = useRef(null);
@@ -10,6 +11,11 @@ export default function LandingIntro() {
   const yAxisRef = useRef(null);
   const xLabelRefs = useRef([]);
   const yLabelRefs = useRef([]);
+  const navigate = useNavigate();
+
+  const handleUploadClick = () => {
+    navigate("/upload");
+  };
 
   useEffect(() => {
     gsap.fromTo(
@@ -112,12 +118,12 @@ export default function LandingIntro() {
 
           {/* Buttons */}
           <div ref={btnRef} className="flex space-x-4 z-10 relative">
-            <a
-              href="/auth"
+            <button
+              onClick={handleUploadClick}
               className="px-6 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium hover:from-blue-400 hover:to-purple-400 transition duration-300 shadow-lg border border-white"
             >
-              Log In to continue
-            </a>
+              Upload
+            </button>
           </div>
         </div>
 

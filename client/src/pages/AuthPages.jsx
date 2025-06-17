@@ -16,13 +16,16 @@ const AuthPages = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    firstName: "",
-    lastName: "",
+    name: "", // Changed from firstName/lastName to single name field to match backend
     agreeToTerms: false,
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const API_BASE_URL = "http://localhost:3000";
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -30,16 +33,109 @@ const AuthPages = () => {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
+    if (error) setError("");
+  };
+
+  const validateForm = () => {
+    if (!isLogin) {
+      if (!formData.name.trim()) {
+        setError("Name is required");
+        return false;
+      }
+      if (formData.name.length < 3) {
+        setError("Name must be at least 3 characters");
+        return false;
+      }
+      if (formData.password.length < 4) {
+        setError("Password must be at least 4 characters");
+        return false;
+      }
+      if (formData.password !== formData.confirmPassword) {
+        setError("Passwords do not match");
+        return false;
+      }
+      if (!formData.agreeToTerms) {
+        setError("You must agree to the terms and conditions");
+        return false;
+      }
+    }
+
+    if (!formData.email.trim()) {
+      setError("Email is required");
+      return false;
+    }
+    if (!formData.password.trim()) {
+      setError("Password is required");
+      return false;
+    }
+
+    return true;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+    setSuccess("");
+
+    if (!validateForm()) {
+      return;
+    }
+
     setIsLoading(true);
-    // Simulate API call
-    setTimeout(() => {
+
+    try {
+      const endpoint = isLogin ? "/auth/login" : "/auth/signup";
+      const payload = isLogin
+        ? { email: formData.email, password: formData.password }
+        : {
+            name: formData.name,
+            email: formData.email,
+            password: formData.password,
+          };
+
+      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        if (isLogin) {
+          localStorage.setItem("jwtToken", data.jwtToken);
+          localStorage.setItem("userEmail", data.email);
+          localStorage.setItem("userName", data.name);
+
+          setSuccess("Login successful! Redirecting...");
+
+          setTimeout(() => {
+            window.location.href = "/dashboard";
+          }, 1500);
+        } else {
+          setSuccess("Account created successfully! You can now sign in.");
+          setTimeout(() => {
+            setIsLogin(true);
+            setFormData({
+              email: formData.email,
+              password: "",
+              confirmPassword: "",
+              name: "",
+              agreeToTerms: false,
+            });
+          }, 1500);
+        }
+      } else {
+        setError(data.error || "Something went wrong. Please try again.");
+      }
+    } catch (err) {
+      console.error("Auth error:", err);
+      setError("Network error. Please check your connection and try again.");
+    } finally {
       setIsLoading(false);
-      console.log("Form submitted:", formData);
-    }, 2000);
+    }
   };
 
   const toggleAuthMode = () => {
@@ -48,10 +144,11 @@ const AuthPages = () => {
       email: "",
       password: "",
       confirmPassword: "",
-      firstName: "",
-      lastName: "",
+      name: "",
       agreeToTerms: false,
     });
+    setError("");
+    setSuccess("");
   };
 
   return (
@@ -86,39 +183,35 @@ const AuthPages = () => {
 
         {/* Auth Form Card */}
         <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700 rounded-2xl p-8 shadow-2xl">
+          {/* Error/Success Messages */}
+          {error && (
+            <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
+              <p className="text-red-400 text-sm">{error}</p>
+            </div>
+          )}
+          {success && (
+            <div className="mb-4 p-3 bg-green-500/10 border border-green-500/20 rounded-lg">
+              <p className="text-green-400 text-sm">{success}</p>
+            </div>
+          )}
+
           {/* Form */}
-          <div className="space-y-5">
-            {/* Name Fields (Signup only) */}
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Name Field (Signup only) */}
             {!isLogin && (
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-300">
-                    First Name
-                  </label>
-                  <div className="relative">
-                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                    <input
-                      type="text"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleInputChange}
-                      className="w-full pl-10 pr-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
-                      placeholder="John"
-                      required={!isLogin}
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-300">
-                    Last Name
-                  </label>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-300">
+                  Full Name
+                </label>
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <input
                     type="text"
-                    name="lastName"
-                    value={formData.lastName}
+                    name="name"
+                    value={formData.name}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
-                    placeholder="Doe"
+                    className="w-full pl-10 pr-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                    placeholder="John Doe"
                     required={!isLogin}
                   />
                 </div>
@@ -257,7 +350,7 @@ const AuthPages = () => {
 
             {/* Submit Button */}
             <Button
-              onClick={handleSubmit}
+              type="submit"
               disabled={isLoading}
               className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
             >
@@ -275,7 +368,7 @@ const AuthPages = () => {
                 </div>
               )}
             </Button>
-          </div>
+          </form>
 
           {/* Switch Auth Mode */}
           <div className="mt-6 text-center">

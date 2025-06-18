@@ -11,6 +11,7 @@ import {
   Download,
   Eye,
 } from "lucide-react";
+import PreviewModal from "../components/PreviewModal";
 
 const UploadPage = () => {
   const [dragActive, setDragActive] = useState(false);
@@ -19,6 +20,7 @@ const UploadPage = () => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const handleDrag = (e) => {
     e.preventDefault();
@@ -232,10 +234,19 @@ const UploadPage = () => {
                       <ArrowRight className="w-5 h-5" />
                     </button>
 
-                    <button className="inline-flex items-center space-x-2 bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300">
+                    <button
+                      className="inline-flex items-center space-x-2 bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300"
+                      onClick={() => setShowModal(true)}
+                    >
                       <Eye className="w-5 h-5" />
                       <span>Preview Data</span>
                     </button>
+                    {showModal && uploadedFile && (
+                      <PreviewModal
+                        file={uploadedFile}
+                        onClose={() => setShowModal(false)}
+                      />
+                    )}
                   </div>
                 )}
               </div>

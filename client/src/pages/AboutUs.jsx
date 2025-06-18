@@ -80,27 +80,30 @@ export default function AboutUs() {
             What We Build
           </h2>
           <p className="text-gray-300">
-            Our platform is engineered to modernize everyday experiences through
-            two primary services:
+            Our platform transforms raw data into actionable insights through
+            interactive visualizations. Upload your Excel files to dynamically
+            preview all your data and generate custom charts that empower you to
+            make data-driven decisions.
           </p>
           <ul className="list-disc list-inside text-gray-300 mt-3 space-y-1">
             <li>
-              <strong>Contactless Restaurant Ordering:</strong> Empowering
-              diners to browse menus, place orders, and make payments via QR
-              code—all without downloading an app or waiting for staff.
+              <strong>Dynamic Data Preview:</strong> Instantly view every column
+              and row from your Excel file in a responsive preview modal.
             </li>
             <li>
-              <strong>Smart Parcel Delivery System:</strong> Facilitating secure
-              and optimized last-mile delivery by allowing users to schedule
-              parcel pickups, select vehicle types, and track deliveries in
-              real-time.
+              <strong>Interactive Chart Analysis:</strong> Convert your data
+              into interactive charts and graphs using Chart.js, with support
+              for Bar, Line, Pie, and Scatter charts.
+            </li>
+            <li>
+              <strong>Real-Time Insights:</strong> Experience immediate visual
+              feedback that helps you understand your data at a glance.
             </li>
           </ul>
-
           <p className="mt-4 text-gray-300">
-            Built with scalability, accessibility, and performance in mind, our
-            solution ensures a seamless experience for both end-users and
-            business owners—on mobile and web platforms alike.
+            Designed with scalability and simplicity in mind, our solution
+            streamlines data analytics, making it accessible for both beginners
+            and experts.
           </p>
 
           {/* Technologies Used */}
@@ -109,8 +112,8 @@ export default function AboutUs() {
               Technology Stack
             </h3>
             <p className="text-gray-400 mb-4">
-              We leverage a robust combination of modern technologies to ensure
-              efficiency, reliability, and adaptability.
+              We leverage a modern and robust combination of technologies to
+              ensure efficient data processing and stunning visualizations.
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 text-center text-gray-300">
               <div className="flex flex-col items-center">
@@ -120,22 +123,6 @@ export default function AboutUs() {
               <div className="flex flex-col items-center">
                 <SiTailwindcss className="text-sky-400 text-3xl" />
                 <span>Tailwind CSS</span>
-              </div>
-              {/* <div className="flex flex-col items-center">
-                <SiFirebase className="text-yellow-400 text-3xl" />
-                <span>Firebase</span>
-              </div> */}
-              <div className="flex flex-col items-center">
-                <SiNodedotjs className="text-green-500 text-3xl" />
-                <span>Node.js</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <SiExpress className="text-gray-300 text-3xl" />
-                <span>Express.js</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <SiMongodb className="text-green-400 text-3xl" />
-                <span>MongoDB</span>
               </div>
               <div className="flex flex-col items-center">
                 <SiJavascript className="text-yellow-300 text-3xl" />
@@ -149,10 +136,18 @@ export default function AboutUs() {
                 <SiCss3 className="text-blue-500 text-3xl" />
                 <span>CSS3</span>
               </div>
-              {/* <div className="flex flex-col items-center">
-                <SiAndroid className="text-green-600 text-3xl" />
-                <span>Android (Java)</span>
-              </div> */}
+              <div className="flex flex-col items-center">
+                <SiMongodb className="text-green-400 text-3xl" />
+                <span>MongoDB</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <SiNodedotjs className="text-green-500 text-3xl" />
+                <span>Node.js</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <SiExpress className="text-gray-300 text-3xl" />
+                <span>Express.js</span>
+              </div>
             </div>
           </div>
         </section>

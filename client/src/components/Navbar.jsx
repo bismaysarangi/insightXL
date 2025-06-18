@@ -18,20 +18,32 @@ import {
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const Navbar = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
-
-  // Check authentication status from localStorage
   const isLoggedIn = !!localStorage.getItem("jwtToken");
+  const profileRef = useRef(null);
   const user = {
     name: localStorage.getItem("userName") || "Guest",
     email: localStorage.getItem("userEmail") || "guest@example.com",
     avatar: "/user.png",
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
+        setIsProfileOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleSignOut = () => {
     localStorage.removeItem("jwtToken");
@@ -114,21 +126,9 @@ const Navbar = () => {
 
           {/* Right Side */}
           <div className="flex items-center space-x-4">
-            {/* Search - Desktop */}
-            {isLoggedIn && (
-              <div className="hidden xl:flex items-center bg-gray-800 rounded-full px-4 py-2 border border-gray-600 focus-within:ring-blue-500 transition-all duration-300">
-                <Search className="w-4 h-4 text-gray-400 mr-2" />
-                <input
-                  type="text"
-                  placeholder="Search insights..."
-                  className="bg-transparent text-gray-300 placeholder-gray-400 text-sm w-40 focus:outline-none focus:w-60 transition-all duration-300"
-                />
-              </div>
-            )}
-
             {/* Profile/Auth - Desktop */}
             {isLoggedIn ? (
-              <div className="hidden md:flex relative">
+              <div className="hidden md:flex relative" ref={profileRef}>
                 <button
                   onClick={() => setIsProfileOpen(!isProfileOpen)}
                   className="flex items-center space-x-2 bg-gray-800 hover:bg-gray-700 rounded-full px-3 py-2 border border-gray-600 hover:border-gray-500 transition-all duration-300"
@@ -210,7 +210,7 @@ const Navbar = () => {
                     }`}
                   />
                   <X
-                    className={`h-6 w-6 absolute transition-all duration-300 ${
+                    className={`h-6 w-6 absolute transition-all duration-300 text-white ${
                       isMobileMenuOpen
                         ? "rotate-0 opacity-100"
                         : "-rotate-90 opacity-0"

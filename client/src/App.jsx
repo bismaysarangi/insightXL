@@ -1,4 +1,3 @@
-import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -8,8 +7,7 @@ import {
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ProtectedRoutes from "./components/ProtectedRoutes";
-
-// Import your pages
+import React from "react";
 import Home from "./pages/Home";
 import Upload from "./pages/Upload";
 import Dashboard from "./pages/Dashboard";
@@ -18,8 +16,10 @@ import Profile from "./pages/Profile";
 import Features from "./pages/Features";
 import AboutUs from "./pages/AboutUs";
 import AuthPages from "./pages/AuthPages";
+import PrivacyPolicy from "./pages/legal/PrivacyPolicy";
+import TermsOfService from "./pages/legal/TermsOfService";
+import CookiePolicy from "./pages/legal/CookiePolicy";
 
-// Layout wrapper component
 const AppLayout = ({ children }) => {
   const location = useLocation();
 
@@ -51,6 +51,9 @@ function App() {
           <Route path="/features" element={<Features />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/auth" element={<AuthPages />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/cookie-policy" element={<CookiePolicy />} />
 
           {/* Protected routes */}
           <Route element={<ProtectedRoutes />}>

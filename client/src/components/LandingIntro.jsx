@@ -84,7 +84,8 @@ export default function LandingIntro() {
     <section className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white h-screen px-8 py-20 flex items-center justify-center">
       <div className="max-w-7xl w-full flex flex-col md:flex-row items-center gap-10">
         {/* Text Content */}
-        <div className="flex-1 flex flex-col justify-center items-start text-left px-6 relative left-20">
+        <div className="flex-1 flex flex-col justify-center items-start text-left px-4 sm:px-10 md:px-20">
+
           {/* Logo and Brand */}
           <div className="flex items-center space-x-3 mb-6">
             <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-3 rounded-lg shadow-xl">

@@ -210,17 +210,17 @@ const Navbar = () => {
                     }`}
                   />
                   <X
-                    className={`h-6 w-6 absolute transition-all duration-300 text-white ${
+                    className={`h-6 w-6 absolute transition-all duration-300 ${
                       isMobileMenuOpen
-                        ? "rotate-0 opacity-100"
-                        : "-rotate-90 opacity-0"
+                        ? "rotate-0 opacity-100 text-white"
+                        : "-rotate-90 opacity-0 text-gray-300"
                     }`}
                   />
                 </Button>
               </SheetTrigger>
               <SheetContent
                 side="right"
-                className="w-80 bg-gradient-to-b from-gray-900 to-gray-950 border-gray-700 p-0"
+                className="w-80 bg-gradient-to-b from-gray-900 to-gray-950 border-gray-700 p-0 [&>button:first-of-type]:text-white [&>button:first-of-type]:hover:text-gray-300"
               >
                 <div className="flex flex-col h-full">
                   {/* Mobile Menu Header */}

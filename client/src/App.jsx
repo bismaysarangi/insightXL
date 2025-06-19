@@ -13,7 +13,7 @@ import Upload from "./pages/Upload";
 import Dashboard from "./pages/Dashboard";
 import History from "./pages/History";
 import Profile from "./pages/Profile";
-import Features from "./pages/Features";
+import ChartGeneration from "./pages/ChartGeneration";
 import AboutUs from "./pages/AboutUs";
 import AuthPages from "./pages/AuthPages";
 import PrivacyPolicy from "./pages/legal/PrivacyPolicy";
@@ -48,7 +48,7 @@ function App() {
         <Routes>
           {/* Public routes */}
           <Route path="/" element={<Home />} />
-          <Route path="/features" element={<Features />} />
+          <Route path="/chart-generation" element={<ChartGeneration />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/auth" element={<AuthPages />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />

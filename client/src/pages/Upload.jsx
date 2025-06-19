@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import PreviewModal from "../components/PreviewModal";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const UploadPage = () => {
   useEffect(() => {
@@ -25,6 +26,7 @@ const UploadPage = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   const handleDrag = (e) => {
     e.preventDefault();
@@ -79,7 +81,6 @@ const UploadPage = () => {
     setIsUploading(true);
     setUploadProgress(0);
 
-    // Simulate upload progress
     const interval = setInterval(() => {
       setUploadProgress((prev) => {
         if (prev >= 100) {
@@ -101,8 +102,12 @@ const UploadPage = () => {
   };
 
   const processAnalysis = () => {
-    // This would typically navigate to the analysis page
-    console.log("Processing analysis for:", uploadedFile.name);
+    navigate("/chart-generation", {
+      state: {
+        uploadedFile: uploadedFile,
+        fileName: uploadedFile.name,
+      },
+    });
   };
 
   return (

@@ -1,16 +1,11 @@
-import { Helmet } from "react-helmet";
+import { useEffect } from "react";
 
 const CookiePolicy = () => {
+  useEffect(() => {
+    document.title = "Cookie Policy | InsightXL";
+  }, []);
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-gray-300">
-      <Helmet>
-        <title>Cookie Policy | InsightXL</title>
-        <meta
-          name="description"
-          content="How we use cookies and similar technologies"
-        />
-      </Helmet>
-
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">

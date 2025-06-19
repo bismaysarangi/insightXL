@@ -12,8 +12,12 @@ import {
   Eye,
 } from "lucide-react";
 import PreviewModal from "../components/PreviewModal";
+import { useEffect } from "react";
 
 const UploadPage = () => {
+  useEffect(() => {
+    document.title = "Upload | InsightXL";
+  }, []);
   const [dragActive, setDragActive] = useState(false);
   const [uploadedFile, setUploadedFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);

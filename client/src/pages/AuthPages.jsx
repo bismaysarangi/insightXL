@@ -9,8 +9,12 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
 
 const AuthPages = () => {
+  useEffect(() => {
+    document.title = "Auth | InsightXL";
+  }, []);
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: "",

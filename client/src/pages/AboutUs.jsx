@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import {
   SiFirebase,
   SiNodedotjs,
@@ -13,6 +14,9 @@ import {
 } from "react-icons/si";
 
 export default function AboutUs() {
+  useEffect(() => {
+    document.title = "About Us | InsightXL";
+  }, []);
   return (
     <div className="min-h-screen bg-gray-950 text-white px-6 py-16">
       <div className="max-w-6xl mx-auto space-y-16">

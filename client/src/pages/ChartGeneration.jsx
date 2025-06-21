@@ -61,7 +61,7 @@ function Bar3D({ data, colors }) {
         const height = item.value * scaleFactor;
         const width = 0.5;
         const depth = 0.5;
-        const x = index - data.length / 2 + 0.5;
+        const x = index * 0.8 - (data.length * 0.8) / 2 + 0.4;
 
         return (
           <group key={index} position={[x, height / 2, 0]}>
@@ -76,11 +76,13 @@ function Bar3D({ data, colors }) {
 
             {/* Label */}
             <Text
-              position={[0, -height / 2 - 0.3, 0]}
-              fontSize={0.3}
+              position={[0, -height / 2 - 0.3, 0.4]}
+              fontSize={0.25}
+              rotation={[0, -0.45, 0]}
               color="white"
               anchorX="center"
               anchorY="middle"
+              maxWidth={1}
             >
               {item.label}
             </Text>

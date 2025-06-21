@@ -9,6 +9,7 @@ import {
   Eye,
   FileSpreadsheet,
   AlertCircle,
+  Box,
 } from "lucide-react";
 import * as XLSX from "xlsx";
 import {
@@ -24,6 +25,9 @@ import {
   ArcElement,
 } from "chart.js";
 import { Bar, Line, Pie } from "react-chartjs-2";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { OrbitControls, Text } from "@react-three/drei";
+import * as THREE from "three";
 
 ChartJS.register(
   CategoryScale,
@@ -36,6 +40,74 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+
+// 3D Bar Chart Component
+function Bar3D({ data, colors }) {
+  const groupRef = useRef();
+
+  // Rotate the chart slowly
+  useFrame(() => {
+    if (groupRef.current) {
+      groupRef.current.rotation.y += 0.002;
+    }
+  });
+
+  const maxValue = Math.max(...data.map((item) => item.value));
+  const scaleFactor = 5 / maxValue;
+
+  return (
+    <group ref={groupRef} position={[0, -2, 0]}>
+      {data.map((item, index) => {
+        const height = item.value * scaleFactor;
+        const width = 0.5;
+        const depth = 0.5;
+        const x = index - data.length / 2 + 0.5;
+
+        return (
+          <group key={index} position={[x, height / 2, 0]}>
+            <mesh castShadow receiveShadow>
+              <boxGeometry args={[width, height, depth]} />
+              <meshStandardMaterial
+                color={new THREE.Color(colors[index % colors.length])}
+                roughness={0.4}
+                metalness={0.1}
+              />
+            </mesh>
+
+            {/* Label */}
+            <Text
+              position={[0, -height / 2 - 0.3, 0]}
+              fontSize={0.3}
+              color="white"
+              anchorX="center"
+              anchorY="middle"
+            >
+              {item.label}
+            </Text>
+
+            {/* Value */}
+            <Text
+              position={[0, height / 2 + 0.2, 0]}
+              fontSize={0.2}
+              color="white"
+              anchorX="center"
+              anchorY="middle"
+            >
+              {item.value}
+            </Text>
+          </group>
+        );
+      })}
+
+      {/* Grid */}
+      <gridHelper args={[10, 10]} rotation={[Math.PI / 2, 0, 0]} />
+
+      {/* Ambient light */}
+      <ambientLight intensity={0.5} />
+      <pointLight position={[10, 10, 10]} intensity={0.8} />
+    </group>
+  );
+}
 
 export default function ChartGeneration() {
   const location = useLocation();
@@ -62,22 +134,63 @@ export default function ChartGeneration() {
     blue: {
       primary: "#3B82F6",
       secondary: "#1E40AF",
-      gradient: ["#3B82F6", "#1E40AF", "#1D4ED8", "#2563EB"],
+      gradient: [
+        "#3B82F6",
+        "#1E40AF",
+        "#1D4ED8",
+        "#2563EB",
+        "#1E3A8A",
+        "#1E40AB",
+        "#2B3A8F",
+        "#2C4ED8",
+        "#1E2A8A",
+        "#1E3D8B",
+      ],
     },
     purple: {
       primary: "#8B5CF6",
       secondary: "#7C3AED",
-      gradient: ["#8B5CF6", "#7C3AED", "#6D28D9", "#5B21B6"],
+      gradient: [
+        "#8B5CF6",
+        "#7C3AED",
+        "#6D28D9",
+        "#5B21B6",
+        "#4C1D95",
+        "#3B0764",
+        "#2C0A4B",
+        "#1E0D32",
+        "#1E0F19",
+      ],
     },
     green: {
       primary: "#10B981",
       secondary: "#059669",
-      gradient: ["#10B981", "#059669", "#047857", "#065F46"],
+      gradient: [
+        "#10B981",
+        "#059669",
+        "#047857",
+        "#065F46",
+        "#064E3B",
+        "#065F46",
+        "#047857",
+        "#059669",
+        "#10B981",
+      ],
     },
     orange: {
       primary: "#F59E0B",
       secondary: "#D97706",
-      gradient: ["#F59E0B", "#D97706", "#B45309", "#92400E"],
+      gradient: [
+        "#F59E0B",
+        "#D97706",
+        "#B45309",
+        "#92400E",
+        "#78350F",
+        "#6A2C0D",
+        "#5B210A",
+        "#4C1D08",
+        "#3B1606",
+      ],
     },
   };
 
@@ -186,11 +299,14 @@ export default function ChartGeneration() {
   };
 
   const downloadChart = () => {
-    if (chartRef.current) {
+    if (chartRef.current && chartType !== "3d") {
       const link = document.createElement("a");
       link.download = `chart_${Date.now()}.png`;
       link.href = chartRef.current.toBase64Image();
       link.click();
+    } else if (chartType === "3d") {
+      // TODO: Implement 3D chart screenshot functionality
+      alert("3D chart export functionality coming soon!");
     }
   };
 
@@ -242,6 +358,26 @@ export default function ChartGeneration() {
 
   const renderChart = () => {
     if (!chartData) return null;
+
+    if (chartType === "3d") {
+      const data3D = chartData.labels.map((label, index) => ({
+        label,
+        value: chartData.datasets[0].data[index],
+      }));
+
+      return (
+        <div className="h-96 w-full">
+          <Canvas camera={{ position: [0, 5, 10], fov: 50 }}>
+            <OrbitControls
+              enablePan={true}
+              enableZoom={true}
+              enableRotate={true}
+            />
+            <Bar3D data={data3D} colors={colorSchemes[colorScheme].gradient} />
+          </Canvas>
+        </div>
+      );
+    }
 
     const chartProps = {
       ref: chartRef,
@@ -329,11 +465,12 @@ export default function ChartGeneration() {
                   <label className="block text-sm font-medium text-gray-300 mb-2">
                     Chart Type
                   </label>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-4 gap-2">
                     {[
                       { type: "bar", icon: BarChart3 },
                       { type: "line", icon: LineChart },
                       { type: "pie", icon: PieChart },
+                      { type: "3d", icon: Box },
                     ].map(({ type, icon: Icon }) => (
                       <button
                         key={type}

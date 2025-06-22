@@ -106,22 +106,14 @@ const Navbar = () => {
               </>
             ) : (
               <Link
-                to="/features"
+                to="/about"
                 className="group relative px-4 py-2 text-gray-300 hover:text-white font-medium transition-all duration-300 flex items-center"
               >
-                <BarChart3 className="w-4 h-4 mr-2" />
-                Features
+                <Info className="w-4 h-4 mr-2" />
+                About
                 <span className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
               </Link>
             )}
-            <Link
-              to="/about"
-              className="group relative px-4 py-2 text-gray-300 hover:text-white font-medium transition-all duration-300 flex items-center"
-            >
-              <Info className="w-4 h-4 mr-2" />
-              About
-              <span className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
-            </Link>
           </nav>
 
           {/* Right Side */}
@@ -265,23 +257,24 @@ const Navbar = () => {
                         </Link>
                       </>
                     ) : (
+                      // <Link
+                      //   to="/features"
+                      //   className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
+                      //   onClick={() => setIsMobileMenuOpen(false)}
+                      // >
+                      //   <BarChart3 className="w-5 h-5 mr-3" />
+                      //   Features
+                      // </Link>
+
                       <Link
-                        to="/features"
+                        to="/about"
                         className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
-                        <BarChart3 className="w-5 h-5 mr-3" />
-                        Features
+                        <Info className="w-5 h-5 mr-3" />
+                        About
                       </Link>
                     )}
-                    <Link
-                      to="/about"
-                      className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      <Info className="w-5 h-5 mr-3" />
-                      About
-                    </Link>
                   </div>
 
                   {/* Mobile Menu Footer */}

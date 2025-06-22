@@ -313,12 +313,6 @@ const AuthPages = () => {
                   />
                   <span className="text-sm text-gray-300">Remember me</span>
                 </label>
-                <a
-                  href="#"
-                  className="text-sm text-blue-400 hover:text-blue-300 transition-colors"
-                >
-                  Forgot password?
-                </a>
               </div>
             )}
 

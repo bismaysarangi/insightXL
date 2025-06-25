@@ -173,7 +173,7 @@ const Profile = () => {
           )}
 
           {/* Profile Header */}
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
             <div className="flex items-center space-x-4">
               <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-4 rounded-full">
                 <User className="w-8 h-8 text-white" />

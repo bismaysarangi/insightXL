@@ -10,6 +10,8 @@ import {
   FileSpreadsheet,
   AlertCircle,
   Box,
+  FileImage,
+  FileText,
 } from "lucide-react";
 import * as XLSX from "xlsx";
 import {
@@ -300,7 +302,7 @@ export default function ChartGeneration() {
     processExcelFile(file);
   };
 
-  const downloadChart = () => {
+  const downloadChartPNG = () => {
     if (chartRef.current && chartType !== "3d") {
       const link = document.createElement("a");
       link.download = `chart_${Date.now()}.png`;
@@ -308,7 +310,42 @@ export default function ChartGeneration() {
       link.click();
     } else if (chartType === "3d") {
       // TODO: Implement 3D chart screenshot functionality
-      alert("3D chart export functionality coming soon!");
+      alert("3D chart PNG export functionality coming soon!");
+    }
+  };
+
+  const downloadChartPDF = () => {
+    if (chartRef.current && chartType !== "3d") {
+      // Create a new window for PDF generation
+      const canvas = chartRef.current.canvas;
+      const imgData = canvas.toDataURL("image/png");
+
+      // Create a new window and add the image for PDF printing
+      const printWindow = window.open("", "_blank");
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Chart Export</title>
+            <style>
+              body { margin: 0; padding: 20px; }
+              img { max-width: 100%; height: auto; }
+            </style>
+          </head>
+          <body>
+            <img src="${imgData}" />
+            <script>
+              window.onload = function() {
+                window.print();
+                window.close();
+              }
+            </script>
+          </body>
+        </html>
+      `);
+      printWindow.document.close();
+    } else if (chartType === "3d") {
+      // TODO: Implement 3D chart PDF functionality
+      alert("3D chart PDF export functionality coming soon!");
     }
   };
 
@@ -424,11 +461,18 @@ export default function ChartGeneration() {
 
           <div className="flex items-center space-x-3">
             <button
-              onClick={downloadChart}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-all"
+              onClick={downloadChartPNG}
+              className="bg-gradient-to-r from-red-600 to-red-900 hover:from-red-600 hover:to-red-700 text-white px-4 py-2 rounded flex items-center space-x-2 transition-all"
             >
-              <Download className="w-5 h-5" />
-              <span className="text-xs md:text-xl">Export Chart</span>
+              <FileImage className="w-5 h-5" />
+              <span className="text-xs md:text-lg">Export PNG</span>
+            </button>
+            <button
+              onClick={downloadChartPDF}
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-4 py-2 rounded flex items-center space-x-2 transition-all"
+            >
+              <FileText className="w-5 h-5" />
+              <span className="text-xs md:text-lg">Export PDF</span>
             </button>
           </div>
         </div>

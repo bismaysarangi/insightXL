@@ -19,6 +19,7 @@ import AuthPages from "./pages/AuthPages";
 import PrivacyPolicy from "./pages/legal/PrivacyPolicy";
 import TermsOfService from "./pages/legal/TermsOfService";
 import CookiePolicy from "./pages/legal/CookiePolicy";
+import AIInsights from "./pages/AIInsights";
 
 const AppLayout = ({ children }) => {
   const location = useLocation();
@@ -49,6 +50,7 @@ function App() {
           {/* Public routes */}
           <Route path="/" element={<Home />} />
           <Route path="/chart-generation" element={<ChartGeneration />} />
+          <Route path="/ai-insights" element={<AIInsights />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/auth" element={<AuthPages />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />

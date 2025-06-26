@@ -10,6 +10,7 @@ import {
   ArrowRight,
   Download,
   Eye,
+  BrainCircuit,
 } from "lucide-react";
 import PreviewModal from "../components/PreviewModal";
 import { useEffect } from "react";
@@ -103,6 +104,15 @@ const UploadPage = () => {
 
   const processAnalysis = () => {
     navigate("/chart-generation", {
+      state: {
+        uploadedFile: uploadedFile,
+        fileName: uploadedFile.name,
+      },
+    });
+  };
+
+  const goToAIInsights = () => {
+    navigate("/ai-insights", {
       state: {
         uploadedFile: uploadedFile,
         fileName: uploadedFile.name,
@@ -225,23 +235,34 @@ const UploadPage = () => {
 
                 {/* Action Buttons */}
                 {!isUploading && uploadProgress === 100 && (
-                  <div className="flex items-center justify-center space-x-4 mt-6">
-                    <button
-                      onClick={processAnalysis}
-                      className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
-                    >
-                      <BarChart3 className="w-5 h-5" />
-                      <span>Analyze Data</span>
-                      <ArrowRight className="w-5 h-5" />
-                    </button>
+                  <div className="flex flex-col space-y-4 mt-6">
+                    <div className="flex items-center justify-center space-x-4">
+                      <button
+                        onClick={processAnalysis}
+                        className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                      >
+                        <BarChart3 className="w-5 h-5" />
+                        <span>Analyze Data</span>
+                        <ArrowRight className="w-5 h-5" />
+                      </button>
+
+                      <button
+                        className="inline-flex items-center space-x-2 bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300"
+                        onClick={() => setShowModal(true)}
+                      >
+                        <Eye className="w-5 h-5" />
+                        <span>Preview Data</span>
+                      </button>
+                    </div>
 
                     <button
-                      className="inline-flex items-center space-x-2 bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300"
-                      onClick={() => setShowModal(true)}
+                      onClick={goToAIInsights}
+                      className="inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-indigo-600 to-pink-600 hover:from-indigo-700 hover:to-pink-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 mx-auto"
                     >
-                      <Eye className="w-5 h-5" />
-                      <span>Preview Data</span>
+                      <BrainCircuit className="w-5 h-5" />
+                      <span>Get AI Insights</span>
                     </button>
+
                     {showModal && uploadedFile && (
                       <PreviewModal
                         file={uploadedFile}

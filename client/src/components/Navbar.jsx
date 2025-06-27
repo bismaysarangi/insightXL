@@ -14,6 +14,7 @@ import {
   PieChart,
   Info,
   LogOut,
+  Brain,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -109,6 +110,14 @@ const Navbar = () => {
                 >
                   <BarChart3 className="w-4 h-4 mr-2" />
                   Chart Generation
+                  <span className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                </Link>
+                <Link
+                  to="/ai-insights"
+                  className="group relative px-4 py-2 text-gray-300 hover:text-white font-medium transition-all duration-300 flex items-center"
+                >
+                  <Brain className="w-4 h-4 mr-2" />
+                  AI Insights
                   <span className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
                 </Link>
               </>
@@ -270,6 +279,14 @@ const Navbar = () => {
                         >
                           <BarChart3 className="w-5 h-5 mr-3" />
                           Chart Generation
+                        </Link>
+                        <Link
+                          to="/ai-insights"
+                          className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          <Brain className="w-5 h-5 mr-3" />
+                          AI Insights
                         </Link>
                       </>
                     ) : (

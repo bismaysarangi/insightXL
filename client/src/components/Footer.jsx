@@ -1,6 +1,18 @@
 import { Instagram, Github, Linkedin, Mail, BarChart3 } from "lucide-react";
+import { useState } from "react";
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
+  const [subscribed, setSubscribed] = useState(false);
+
+  const handleSubscribe = () => {
+    if (email.trim() !== "") {
+      setSubscribed(true);
+      setEmail("");
+
+      setTimeout(() => setSubscribed(false), 3000);
+    }
+  };
   return (
     <footer className="w-full bg-gradient-to-br from-gray-900 to-gray-800 border-t border-gray-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
@@ -86,6 +98,18 @@ const Footer = () => {
               >
                 About Us
               </a>
+              <a
+                href="/chart-generation"
+                className="block text-gray-300 hover:text-blue-400 transition-colors duration-200 text-sm font-medium hover:translate-x-1 transform transition-transform"
+              >
+                Chart Generation
+              </a>
+              <a
+                href="/ai-insights"
+                className="block text-gray-300 hover:text-blue-400 transition-colors duration-200 text-sm font-medium hover:translate-x-1 transform transition-transform"
+              >
+                AI Insights
+              </a>
             </nav>
           </div>
 
@@ -102,13 +126,25 @@ const Footer = () => {
               <div className="flex">
                 <input
                   type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
                   className="flex-1 px-4 py-2 text-sm border border-gray-600 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-800 text-white placeholder-gray-400"
                 />
-                <button className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-medium rounded-r-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800">
+                <button
+                  onClick={handleSubscribe}
+                  className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-medium rounded-r-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800"
+                >
                   Subscribe
                 </button>
               </div>
+
+              {subscribed && (
+                <div className="text-green-400 bg-gray-800 border border-green-600 rounded-md px-4 py-2 text-sm mt-2 animate-fade-in">
+                  🎉 Thank you for subscribing!
+                </div>
+              )}
+
               <p className="text-xs text-gray-400">
                 No spam. Unsubscribe anytime.
               </p>

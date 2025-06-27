@@ -59,6 +59,7 @@ const Footer = () => {
               </a>
               <a
                 href="https://www.instagram.com/b._.smay/"
+                target="_blank"
                 className="group bg-gray-800 p-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 border border-gray-600"
                 aria-label="Instagram"
               >

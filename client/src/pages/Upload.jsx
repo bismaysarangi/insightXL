@@ -236,10 +236,10 @@ const UploadPage = () => {
                 {/* Action Buttons */}
                 {!isUploading && uploadProgress === 100 && (
                   <div className="flex flex-col space-y-4 mt-6">
-                    <div className="flex items-center justify-center space-x-4">
+                    <div className="flex items-center justify-center space-x-2">
                       <button
                         onClick={processAnalysis}
-                        className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                        className="inline-flex items-center space-x-0.5 md:space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                       >
                         <BarChart3 className="w-5 h-5" />
                         <span>Analyze Data</span>
@@ -247,7 +247,7 @@ const UploadPage = () => {
                       </button>
 
                       <button
-                        className="inline-flex items-center space-x-2 bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300"
+                        className="inline-flex items-center space-x-0.5 md:space-x-2 bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300"
                         onClick={() => setShowModal(true)}
                       >
                         <Eye className="w-5 h-5" />

@@ -24,7 +24,7 @@ import * as XLSX from "xlsx";
 
 export default function AIInsights() {
   const location = useLocation();
-  const HF_API_KEY = "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";
+  const HF_API_KEY = import.meta.env.VITE_API_TOKEN;
 
   useEffect(() => {
     document.title = "AI Insights | InsightXL";

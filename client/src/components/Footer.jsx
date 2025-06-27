@@ -34,7 +34,7 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a
-                href="mailto:contact@insightxl.com"
+                href="mailto:bismaysarangi@gmail.com"
                 className="group bg-gray-800 p-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 border border-gray-600"
                 aria-label="Email us"
               >
@@ -50,7 +50,7 @@ const Footer = () => {
                 <Github className="w-5 h-5 text-gray-300 group-hover:text-white transition-colors" />
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/in/bismay-sarangi-0804aa263/"
                 target="_blank"
                 className="group bg-gray-800 p-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 border border-gray-600"
                 aria-label="LinkedIn"
@@ -58,7 +58,7 @@ const Footer = () => {
                 <Linkedin className="w-5 h-5 text-gray-300 group-hover:text-blue-400 transition-colors" />
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/b._.smay/"
                 className="group bg-gray-800 p-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 border border-gray-600"
                 aria-label="Instagram"
               >

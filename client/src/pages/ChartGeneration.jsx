@@ -12,6 +12,7 @@ import {
   Box,
   FileImage,
   FileText,
+  Save,
 } from "lucide-react";
 import * as XLSX from "xlsx";
 import {
@@ -132,6 +133,7 @@ export default function ChartGeneration() {
   const [fileName, setFileName] = useState("No file selected");
   const [error, setError] = useState("");
   const chartRef = useRef(null);
+  const [isSaving, setIsSaving] = useState(false);
 
   // Color schemes
   const colorSchemes = {
@@ -349,6 +351,47 @@ export default function ChartGeneration() {
     }
   };
 
+  const saveAnalysisData = async () => {
+    const token = localStorage.getItem("jwtToken");
+    if (!token) {
+      alert("You must be logged in to save your analysis.");
+      return;
+    }
+
+    setIsSaving(true);
+
+    try {
+      const response = await fetch("http://localhost:3000/analysis/save", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify({
+          filename: fileName,
+          chartType: chartType.charAt(0).toUpperCase() + chartType.slice(1),
+          excelData: {
+            headers: headers,
+            data: excelData,
+          },
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert("Analysis saved successfully!");
+      } else {
+        alert("Failed to save analysis: " + result.error);
+      }
+    } catch (error) {
+      console.error("Error saving analysis:", error);
+      alert("An error occurred while saving the analysis.");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -460,6 +503,16 @@ export default function ChartGeneration() {
           </div>
 
           <div className="flex items-center space-x-3">
+            <button
+              onClick={saveAnalysisData}
+              disabled={isSaving || !chartData}
+              className="bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 text-white px-4 py-2 rounded flex items-center space-x-2 transition-all disabled:opacity-50"
+            >
+              <Save className="w-5 h-5" />
+              <span className="text-xs md:text-lg">
+                {isSaving ? "Saving..." : "Save Analysis"}
+              </span>
+            </button>
             <button
               onClick={downloadChartPNG}
               className="bg-gradient-to-r from-red-600 to-red-900 hover:from-red-600 hover:to-red-700 text-white px-4 py-2 rounded flex items-center space-x-2 transition-all"

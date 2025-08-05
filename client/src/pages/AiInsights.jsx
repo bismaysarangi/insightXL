@@ -24,7 +24,7 @@ import * as XLSX from "xlsx";
 
 export default function AIInsights() {
   const location = useLocation();
-  const HF_API_KEY = import.meta.env.VITE_API_TOKEN;
+  const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
   useEffect(() => {
     document.title = "AI Insights | InsightXL";
@@ -40,7 +40,7 @@ export default function AIInsights() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [dataPreview, setDataPreview] = useState("");
 
-  // Predefined analysis prompts with improved wording
+  // Predefined analysis prompts
   const analysisPrompts = [
     {
       id: "summary",
@@ -163,7 +163,8 @@ export default function AIInsights() {
     return preview;
   };
 
-  const analyzeWithMistral = async (prompt) => {
+  // === UPDATED GEMINI API CALL ===
+  const analyzeWithGemini = async (prompt) => {
     if (!dataPreview.trim()) {
       setError("Please upload a dataset first to begin analysis.");
       return;
@@ -173,56 +174,63 @@ export default function AIInsights() {
     setError("");
 
     try {
-      // Improved prompt structure for better responses
-      const enhancedPrompt = `<|system|>You are an expert data analyst with extensive experience in business intelligence and statistical analysis. Provide clear, actionable insights in a professional format.</s>
-<|user|>Please analyze the following dataset and ${prompt.toLowerCase()}:
+      // Enhanced prompt for Gemini
+      const fullPrompt = `
+You are an expert data analyst with extensive experience in business intelligence and statistical analysis. 
+Analyze the following dataset and ${prompt.toLowerCase()}:
 
+Dataset: ${fileName}
 ${dataPreview}
 
-Structure your response with clear sections and bullet points. Focus on:
-• Data-driven observations
-• Business implications
-• Specific recommendations
-• Statistical insights where relevant
+Provide your response with:
+- Clear sections and bullet points
+- Data-driven observations
+- Business implications
+- Specific recommendations
+- Statistical insights where relevant
 
-Provide a comprehensive yet concise analysis.</s>
-<|assistant|>`;
+Make your analysis comprehensive yet concise.
+      `;
 
+      // --- KEY UPDATE HERE ---
+      // Gemini-2.0-Flash expects the API key in the header!
       const response = await fetch(
-        "https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta",
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${HF_API_KEY}`,
             "Content-Type": "application/json",
+            "X-goog-api-key": GEMINI_API_KEY, // UPDATED: API Key in header
           },
           body: JSON.stringify({
-            inputs: enhancedPrompt,
-            parameters: {
-              max_new_tokens: 1200,
+            contents: [
+              {
+                parts: [
+                  {
+                    text: fullPrompt,
+                  },
+                ],
+              },
+            ],
+            generationConfig: {
+              maxOutputTokens: 1200,
               temperature: 0.7,
-              top_p: 0.9,
-              repetition_penalty: 1.1,
+              topP: 0.9,
             },
           }),
         }
       );
+      // ---
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || "API request failed");
+        throw new Error(errorData.error?.message || "API request failed");
       }
 
       const data = await response.json();
-      let aiResponse = data[0]?.generated_text || "No response generated.";
-
-      // Clean up the response by removing the prompt echo
-      if (aiResponse.includes("<|assistant|>")) {
-        aiResponse = aiResponse.split("<|assistant|>")[1] || aiResponse;
-      }
-
-      // Remove any remaining system tokens
-      aiResponse = aiResponse.replace(/<\|[^|]*\|>/g, "").trim();
+      const aiResponse =
+        data.candidates?.[0]?.content?.parts?.[0]?.text ||
+        "No response generated.";
 
       setInsights((prev) => [
         {
@@ -236,7 +244,7 @@ Provide a comprehensive yet concise analysis.</s>
       ]);
     } catch (error) {
       setError(`API Error: ${error.message}`);
-      // Fallback to improved mock response
+      // Fallback to mock response
       setInsights((prev) => [
         {
           id: Date.now(),
@@ -379,7 +387,7 @@ These insights provide a roadmap for data-driven decision making and strategic p
 
   const handleCustomQuery = () => {
     if (!currentQuery.trim()) return;
-    analyzeWithMistral(currentQuery);
+    analyzeWithGemini(currentQuery);
     setCurrentQuery("");
   };
 
@@ -474,7 +482,7 @@ These insights provide a roadmap for data-driven decision making and strategic p
                 {analysisPrompts.map((analysis) => (
                   <button
                     key={analysis.id}
-                    onClick={() => analyzeWithMistral(analysis.prompt)}
+                    onClick={() => analyzeWithGemini(analysis.prompt)}
                     disabled={isAnalyzing || !excelData.length}
                     className={`w-full bg-gradient-to-r ${
                       analysis.color === "blue"

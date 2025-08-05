@@ -13,6 +13,9 @@ import {
   FileImage,
   FileText,
   Save,
+  CheckCircle,
+  Info,
+  X,
 } from "lucide-react";
 import * as XLSX from "xlsx";
 import {
@@ -43,6 +46,39 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+
+// Notification Component
+const Notification = ({ message, type, onClose }) => {
+  const bgColor = {
+    success: "bg-green-500/20 border-green-500/30",
+    error: "bg-red-500/20 border-red-500/30",
+    info: "bg-blue-500/20 border-blue-500/30",
+  };
+
+  const iconColor = {
+    success: "text-green-400",
+    error: "text-red-400",
+    info: "text-blue-400",
+  };
+
+  const icon = {
+    success: <CheckCircle className="w-5 h-5" />,
+    error: <AlertCircle className="w-5 h-5" />,
+    info: <Info className="w-5 h-5" />,
+  };
+
+  return (
+    <div
+      className={`fixed top-4 right-4 p-4 rounded-lg border ${bgColor[type]} flex items-center space-x-3 z-50 animate-fade-in`}
+    >
+      <div className={iconColor[type]}>{icon[type]}</div>
+      <p className="text-white">{message}</p>
+      <button onClick={onClose} className="text-gray-300 hover:text-white">
+        <X className="w-4 h-4" />
+      </button>
+    </div>
+  );
+};
 
 // 3D Bar Chart Component
 function Bar3D({ data, colors }) {
@@ -134,6 +170,7 @@ export default function ChartGeneration() {
   const [error, setError] = useState("");
   const chartRef = useRef(null);
   const [isSaving, setIsSaving] = useState(false);
+  const [notifications, setNotifications] = useState([]);
 
   // Color schemes
   const colorSchemes = {
@@ -198,6 +235,21 @@ export default function ChartGeneration() {
         "#3B1606",
       ],
     },
+  };
+
+  // Notification helpers
+  const showNotification = (message, type = "info") => {
+    const id = Date.now();
+    setNotifications((prev) => [...prev, { id, message, type }]);
+
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+      removeNotification(id);
+    }, 5000);
+  };
+
+  const removeNotification = (id) => {
+    setNotifications((prev) => prev.filter((n) => n.id !== id));
   };
 
   // Process uploaded file from router state on component mount
@@ -311,8 +363,10 @@ export default function ChartGeneration() {
       link.href = chartRef.current.toBase64Image();
       link.click();
     } else if (chartType === "3d") {
-      // TODO: Implement 3D chart screenshot functionality
-      alert("3D chart PNG export functionality coming soon!");
+      showNotification(
+        "3D chart PNG export functionality coming soon!",
+        "info"
+      );
     }
   };
 
@@ -346,15 +400,17 @@ export default function ChartGeneration() {
       `);
       printWindow.document.close();
     } else if (chartType === "3d") {
-      // TODO: Implement 3D chart PDF functionality
-      alert("3D chart PDF export functionality coming soon!");
+      showNotification(
+        "3D chart PDF export functionality coming soon!",
+        "info"
+      );
     }
   };
 
   const saveAnalysisData = async () => {
     const token = localStorage.getItem("jwtToken");
     if (!token) {
-      alert("You must be logged in to save your analysis.");
+      showNotification("You must be logged in to save your analysis", "error");
       return;
     }
 
@@ -380,13 +436,13 @@ export default function ChartGeneration() {
       const result = await response.json();
 
       if (result.success) {
-        alert("Analysis saved successfully!");
+        showNotification("Analysis saved successfully!", "success");
       } else {
-        alert("Failed to save analysis: " + result.error);
+        showNotification(`Failed to save analysis: ${result.error}`, "error");
       }
     } catch (error) {
       console.error("Error saving analysis:", error);
-      alert("An error occurred while saving the analysis.");
+      showNotification("An error occurred while saving the analysis", "error");
     } finally {
       setIsSaving(false);
     }
@@ -484,6 +540,18 @@ export default function ChartGeneration() {
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse delay-700"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-indigo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse delay-1000"></div>
+      </div>
+
+      {/* Notification container */}
+      <div className="fixed top-4 right-4 space-y-2 z-50">
+        {notifications.map((notification) => (
+          <Notification
+            key={notification.id}
+            message={notification.message}
+            type={notification.type}
+            onClose={() => removeNotification(notification.id)}
+          />
+        ))}
       </div>
 
       <div className="relative max-w-7xl mx-auto">

@@ -1,5 +1,5 @@
 import FAQ from "../components/FAQ";
-import Hero from "../components/hero";
+import Hero from "../components/Hero";
 import HowItWorks from "../components/HowItWorks";
 import LandingIntro from "../components/LandingIntro";
 import { useEffect } from "react";

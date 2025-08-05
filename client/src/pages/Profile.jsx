@@ -12,7 +12,7 @@ const Profile = () => {
   const [success, setSuccess] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
-  const API_BASE_URL = "https://insightxl-server.onrender.com/";
+  const API_BASE_URL = "https://insightxl-server.onrender.com";
 
   useEffect(() => {
     document.title = "Profile | InsightXL";

@@ -1,10 +1,9 @@
-// Your existing index.js should have something like this:
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const AuthRouter = require("./Routes/AuthRouter");
-const AnalysisRouter = require("./Routes/AnalysisRouter"); // Import the new router
+const AnalysisRouter = require("./Routes/AnalysisRouter");
 require("dotenv").config();
 require("./Models/db");
 
@@ -17,7 +16,14 @@ app.get("/", (req, res) => {
 app.use(bodyParser.json());
 app.use(cors());
 app.use("/auth", AuthRouter);
-app.use("/analysis", AnalysisRouter); // Use the new router
+app.use("/analysis", AnalysisRouter);
+
+app.use((req, res, next) => {
+  if (req.path.startsWith('/auth') || req.path.startsWith('/analysis')) {
+    return res.status(404).json({ error: 'API endpoint not found', success: false });
+  }
+  next();
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);

@@ -19,7 +19,7 @@ import AuthPages from "./pages/AuthPages";
 import PrivacyPolicy from "./pages/legal/PrivacyPolicy";
 import TermsOfService from "./pages/legal/TermsOfService";
 import CookiePolicy from "./pages/legal/CookiePolicy";
-import AIInsights from "./pages/AIInsights";
+import AIInsights from "./pages/AiInsights";
 
 const AppLayout = ({ children }) => {
   const location = useLocation();

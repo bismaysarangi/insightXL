@@ -49,11 +49,14 @@ const History = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/analysis/history", {
-        headers: {
-          Authorization: token,
-        },
-      });
+      const response = await fetch(
+        "https://insightxl-server.onrender.com/analysis/history",
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
 
       const data = await response.json();
 
@@ -79,12 +82,15 @@ const History = () => {
 
     if (window.confirm("Are you sure you want to delete this analysis?")) {
       try {
-        const response = await fetch(`http://localhost:3000/analysis/${id}`, {
-          method: "DELETE",
-          headers: {
-            Authorization: token,
-          },
-        });
+        const response = await fetch(
+          `https://insightxl-server.onrender.com/analysis/${id}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
 
         const result = await response.json();
 

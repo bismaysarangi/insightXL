@@ -417,21 +417,24 @@ export default function ChartGeneration() {
     setIsSaving(true);
 
     try {
-      const response = await fetch("http://localhost:3000/analysis/save", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-        body: JSON.stringify({
-          filename: fileName,
-          chartType: chartType.charAt(0).toUpperCase() + chartType.slice(1),
-          excelData: {
-            headers: headers,
-            data: excelData,
+      const response = await fetch(
+        "https://insightxl-server.onrender.com/analysis/save",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
           },
-        }),
-      });
+          body: JSON.stringify({
+            filename: fileName,
+            chartType: chartType.charAt(0).toUpperCase() + chartType.slice(1),
+            excelData: {
+              headers: headers,
+              data: excelData,
+            },
+          }),
+        }
+      );
 
       const result = await response.json();
 

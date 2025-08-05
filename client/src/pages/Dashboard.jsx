@@ -77,9 +77,12 @@ const Dashboard = () => {
 
       // Fetch user data from localStorage or API if needed
       if (!user.name || !user.email) {
-        const userResponse = await fetch("http://localhost:3000/auth/profile", {
-          headers: { Authorization: token },
-        });
+        const userResponse = await fetch(
+          "https://insightxl-server.onrender.com/auth/profile",
+          {
+            headers: { Authorization: token },
+          }
+        );
         const userData = await userResponse.json();
         if (userData.success) {
           setUser(userData.user);
@@ -90,7 +93,7 @@ const Dashboard = () => {
 
       // Fetch analysis history
       const historyResponse = await fetch(
-        "http://localhost:3000/analysis/history",
+        "https://insightxl-server.onrender.com/analysis/history",
         {
           headers: { Authorization: token },
         }

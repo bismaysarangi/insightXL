@@ -29,7 +29,7 @@ const AuthPages = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const API_BASE_URL = "http://localhost:3000";
+  const API_BASE_URL = "https://insightxl-server.onrender.com/";
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;

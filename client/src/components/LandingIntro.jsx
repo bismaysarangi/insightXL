@@ -90,7 +90,7 @@ export default function LandingIntro() {
     <section className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white h-screen px-8 py-20 flex items-center justify-center">
       <div className="max-w-7xl w-full flex flex-col md:flex-row items-center gap-10">
         {/* Text Content */}
-        <div className="flex-1 flex flex-col justify-center items-start text-left px-6 relative left-20">
+        <div className="flex-1 flex flex-col justify-center items-start text-left px-4 md:px-6 relative md:left-20 left-0 w-full md:w-auto max-w-full">
           {/* Logo and Brand */}
           <div className="flex items-center space-x-3 mb-6">
             <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-3 rounded-lg shadow-xl">
@@ -128,8 +128,8 @@ export default function LandingIntro() {
         </div>
 
         {/* Animated Graph */}
-        <div className="flex-1 flex justify-center items-center px-6">
-          <div className="w-96 h-60 relative">
+        <div className="flex-1 flex justify-center items-center px-4 md:px-6 w-full">
+          <div className="w-full max-w-xs md:w-96 h-60 relative mx-auto">
             {/* Y-Axis */}
             <div
               ref={yAxisRef}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   BarChart3,
   Trash2,
@@ -34,6 +34,17 @@ const History = () => {
   const [history, setHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+
+  // New state for popup message
+  const [popup, setPopup] = useState(null);
+  const popupTimeoutRef = useRef(null);
+
+  // Show popup and auto-clear after 3 seconds
+  const showPopup = (message) => {
+    setPopup(message);
+    if (popupTimeoutRef.current) clearTimeout(popupTimeoutRef.current);
+    popupTimeoutRef.current = setTimeout(() => setPopup(null), 3000);
+  };
 
   useEffect(() => {
     document.title = "History | InsightXL";
@@ -76,7 +87,7 @@ const History = () => {
   const handleDelete = async (id) => {
     const token = localStorage.getItem("jwtToken");
     if (!token) {
-      alert("You must be logged in to delete this analysis.");
+      showPopup("You must be logged in to delete this analysis.");
       return;
     }
 
@@ -96,18 +107,26 @@ const History = () => {
 
         if (result.success) {
           setHistory(history.filter((item) => item._id !== id));
+          showPopup("Analysis deleted successfully.");
         } else {
-          alert("Failed to delete analysis: " + result.error);
+          showPopup("Failed to delete analysis: " + result.error);
         }
       } catch (error) {
         console.error("Error deleting analysis:", error);
-        alert("An error occurred while deleting the analysis.");
+        showPopup("An error occurred while deleting the analysis.");
       }
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-4 relative">
+      {/* Popup message */}
+      {popup && (
+        <div className="fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-gray-800 bg-opacity-90 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in-out">
+          {popup}
+        </div>
+      )}
+
       {/* Background Pattern */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
@@ -138,7 +157,7 @@ const History = () => {
             </div>
           ) : error ? (
             <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 flex items-center justify-center space-x-3">
-              <AlertCircle className="w-5 h-5 text-red-400" />
+              <BarChart3 className="w-5 h-5 text-red-400" />
               <p className="text-red-400">{error}</p>
             </div>
           ) : history.length === 0 ? (
@@ -154,7 +173,7 @@ const History = () => {
             </div>
           ) : (
             <div className="space-y-3">
-              {history.map((item, index) => (
+              {history.map((item) => (
                 <div
                   key={item._id}
                   className="group bg-gray-800/70 hover:bg-gray-800/90 backdrop-blur-sm border border-gray-700 hover:border-blue-500/50 rounded-xl p-5 flex items-center justify-between transition-all duration-300 ease-in-out"

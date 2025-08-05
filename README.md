@@ -1,7 +1,7 @@
 # InsightXL
 
 ## Project Overview
-**InsightXL** is a powerful web application designed to transform Excel datasets into stunning, ready-to-use visualizations. Users can easily upload Excel files and generate various chart types—including bar, line, pie, scatter, and area charts—to enhance business analysis, reports, and presentations.
+**InsightXL** is a powerful web application designed to transform Excel datasets into stunning, ready-to-use visualizations. Users can easily upload Excel files and generate various chart types—including bar, line, pie, scatter, and 3D charts—to enhance business analysis, reports, and presentations.
 
 With a modern React frontend, smooth GSAP animations, and a secure Node.js/Express backend featuring JWT authentication and MongoDB persistence, InsightXL delivers a seamless and responsive user experience across devices.
 

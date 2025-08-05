@@ -282,7 +282,7 @@ const Dashboard = () => {
               <TrendingUp className="w-4 h-4 text-green-400 mr-1" />
               <span className="text-green-400 text-sm">
                 {stats.totalAnalyses > 0
-                  ? "+12% from last month"
+                  ? "+100% from last month"
                   : "Start your first analysis"}
               </span>
             </div>

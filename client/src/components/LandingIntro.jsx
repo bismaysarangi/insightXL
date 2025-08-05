@@ -87,7 +87,7 @@ export default function LandingIntro() {
   }, []);
 
   return (
-    <section className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white h-screen px-8 py-20 flex items-center justify-center">
+    <section className="bg-gray-900 text-white h-screen px-8 py-20 flex items-center justify-center">
       <div className="max-w-7xl w-full flex flex-col md:flex-row items-center gap-10">
         {/* Text Content */}
         <div className="flex-1 flex flex-col justify-center items-start text-left px-4 md:px-6 relative md:left-20 left-0 w-full md:w-auto max-w-full">

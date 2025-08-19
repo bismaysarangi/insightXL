@@ -5,23 +5,23 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 const slides = [
   {
     title: "Versatile Chart Options",
-    description: "InsightXL offers multiple chart types, including bar, line, and pie charts, giving you flexibility to choose the best visualization for your data insights.",
-    image: "/src/assets/chart.png",
+    description:
+      "InsightXL offers multiple chart types, including bar, line, and pie charts, giving you flexibility to choose the best visualization for your data insights.",
   },
   {
     title: "User-Friendly Interface",
-    description: "No complex steps required—create graphs from Excel effortlessly using Powerdrill’s intuitive interface, making it accessible for users of all skill levels.",
-    image: "/src/assets/interface.png",
+    description:
+      "No complex steps required—create graphs from Excel effortlessly using Powerdrill’s intuitive interface, making it accessible for users of all skill levels.",
   },
   {
     title: "Efficient Data Visualization",
-    description: "Easily create bar, line, and pie charts from Excel to enhance your data presentation, making it more understandable and visually appealing for all audiences.",
-    image: "/src/assets/graph.png",
+    description:
+      "Easily create bar, line, and pie charts from Excel to enhance your data presentation, making it more understandable and visually appealing for all audiences.",
   },
   {
     title: "Streamlined Process",
-    description: "With Powerdrill, generating professional charts from Excel is simple and fast, saving you time and effort for more critical analysis tasks.",
-    image: "/src/assets/process.png",
+    description:
+      "With Powerdrill, generating professional charts from Excel is simple and fast, saving you time and effort for more critical analysis tasks.",
   },
 ];
 
@@ -46,7 +46,6 @@ export default function Hero() {
   return (
     <section className="w-full h-screen bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center relative overflow-hidden group">
       <div className="relative w-full max-w-7xl mx-auto px-6">
-        
         {/* Features Heading */}
         <h4 className="text-4xl font-bold text-white text-center mb-8">
           Features
@@ -56,7 +55,6 @@ export default function Hero() {
         <HeroSlide
           title={slides[currentSlide].title}
           description={slides[currentSlide].description}
-          image={slides[currentSlide].image}
         />
 
         {/* Navigation Buttons */}

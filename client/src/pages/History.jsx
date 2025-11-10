@@ -235,10 +235,6 @@ const History = () => {
                             )}
                           </span>
                         </div>
-                        <div className="flex items-center space-x-1.5">
-                          <FileText className="w-3 h-3 text-gray-400" />
-                          <span>{item.excelData?.data?.length || 0} rows</span>
-                        </div>
                       </div>
                     </div>
                   </div>

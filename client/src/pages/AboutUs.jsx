@@ -42,15 +42,12 @@ export default function AboutUs() {
             />
             <div>
               <h2 className="text-2xl font-semibold mb-2 text-white">
-                Tarvish Sonkhla
+                Tejash Maru
               </h2>
               <p className="text-gray-300">
-                I’m Tarvish Sonkhla, currently pursuing my final year in
-                Computer Science Engineering at Punjab University, Chandigarh.
-                My focus lies in designing scalable backend architectures and
-                building seamless, responsive user interfaces. I believe in
-                developing practical digital solutions that not only perform but
-                also deliver a refined user experience across diverse platforms.
+                Hello, I'm Tejash Maru, a 21-year-old Computer Science
+                student from XIM University, Bhubaneswar. I love exploring new innovations, learning how things work behind the scenes, and creating projects that combine creativity with technical skills. 
+                Whether it’s building smart systems, developing web applications, or experimenting with AI, I enjoy using technology to solve real-world problems and make ideas come to life.
               </p>
             </div>
           </div>
